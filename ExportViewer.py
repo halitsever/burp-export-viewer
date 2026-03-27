@@ -8,6 +8,7 @@ from burp import IHttpRequestResponse, IParameter, IHttpService
 from java.awt import BorderLayout
 from java.util import ArrayList, Base64
 from java.net import URL
+from java.lang import Integer
 from java.util.regex import Pattern
 from java.lang import String
 
@@ -262,6 +263,11 @@ class BurpExtender(IBurpExtender, ITab, IMessageEditorController,
     def getColumnCount(self):
         return 13
 
+    def getColumnClass(self, columnIndex):
+        if columnIndex == 0:
+            return Integer
+        return String
+
     def getColumnName(self, columnIndex):
         if columnIndex == 0:
             return "#"
@@ -296,7 +302,7 @@ class BurpExtender(IBurpExtender, ITab, IMessageEditorController,
         logEntry = self._log.get(rowIndex)
 
         if columnIndex == 0:
-            return "{}".format(rowIndex)
+            return rowIndex
         if columnIndex == 1:
             return logEntry._info["method"]
         if columnIndex == 2:
